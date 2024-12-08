@@ -1,13 +1,42 @@
-﻿using System.Globalization;
-using Didact.Flatify.Enums;
+﻿using Didact.Flatify.Enums;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace Didact.Flatify.Forms;
 
+public abstract class ParameterState<T>
+{
+    /// <summary>
+    /// Gets the current value.
+    /// </summary>
+    public abstract T? Value { get; }
+
+    /// <summary>
+    /// Set the parameter's value.
+    /// </summary>
+    /// <remarks>
+    /// Note: you should never set the parameter's property directly from within the component.
+    /// Instead, use SetValueAsync on the ParameterState object.
+    /// </remarks>
+    /// <param name="value">New parameter's value.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    public abstract Task SetValueAsync(T value);
+
+    /// <summary>
+    /// Defines an implicit conversion of a <see cref="ParameterState{T}"/> object to its underlying value of type <typeparamref name="T"/>.
+    /// </summary>
+    /// <param name="parameterState">The <see cref="ParameterState{T}"/> object to convert.</param>
+    /// <returns>The underlying value of type <typeparamref name="T"/>.</returns>
+    public static implicit operator T?(ParameterState<T> parameterState) => parameterState.Value;
+}
+
 public class FlatifyInputBase<T> : FlatifyFormComponent<T, string>
 {
     private bool _isDirty;
+    protected string InputElementId => _inputIdState.Value;
+    private string _userAttributesId = Identifier.Create("flatify");
+    private readonly string _componentId = Identifier.Create("flatify");
+    private readonly ParameterState<string> _inputIdState;
 
     public int? Counter { get; set; }
     [Parameter] public int MaxLength { get; set; } = 524288;
@@ -18,7 +47,7 @@ public class FlatifyInputBase<T> : FlatifyFormComponent<T, string>
     [Parameter] public string Label { get; set; }
     [Parameter] public bool AutoFocus { get; set; }
     [Parameter] public virtual InputMode InputMode { get; set; } = InputMode.text;
-    [Parameter] public string? Text { get; set; }
+    [Parameter] public string Text { get; set; }
     [Parameter] public EventCallback<string> TextChanged { get; set; }
     [Parameter] public EventCallback<FocusEventArgs> OnBlur { get; set; }
     [Parameter] public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }

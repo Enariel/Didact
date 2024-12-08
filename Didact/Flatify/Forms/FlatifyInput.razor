@@ -1,0 +1,39 @@
+﻿@inherits FlatifyInputBase<T>
+@typeparam T
+
+<CascadingValue Name="SubscribeToParentForm" Value="@SubscribeToParentForm" IsFixed="true">
+
+	<div class="@Classname">
+		@if (MaxLines > 1 || AutoGrow)
+		{
+			<textarea class="@InputClassname" rows="@Lines" @attributes="@AttributeDict" id="@InputElementId"
+			          type="@InputTypeString" placeholder="@Placeholder" disabled=@Disabled readonly="@ReadOnly"
+			          inputmode="@InputMode.ToString().ToLowerInvariant()" value="@_internalText" maxlength="@MaxLength"
+			          aria-invalid="@Error.ToString().ToLowerInvariant()" required="@Required"
+			          @aria-required="@Required.ToString().ToLowerInvariant()" name="@InputElementId">
+				@Text
+			</textarea>
+			@if (!string.IsNullOrEmpty(Label) && !FullWidth)
+			{
+				<label id="@InputElementId" name="@InputElementId" for="@InputElementId"
+				       class="form-label">@Label</label>
+			}
+		}
+		else
+		{
+			<input class="@InputClassname" @attributes="AttributeDict" id="@InputElementId" type="@InputTypeString"
+			       value="@_internalText" placeholder="@Placeholder" disabled="@Disabled" readonly="@ReadOnly"
+			       inputmode="@InputMode.ToString().ToLower()" maxlength="@MaxLength"
+			       aria-invalid="@Error.ToString().ToLowerInvariant()" required="@Required"
+			       aria-required="@Required.ToString().ToLowerInvariant()" name="@InputElementId"/>
+			@if (!string.IsNullOrEmpty(Label) && !FullWidth)
+			{
+				<label for="@InputElementId" name="InputElementId" class="form-label">@Label</label>
+			}
+		}
+	</div>
+	@if (!string.IsNullOrEmpty(HelperText))
+	{
+		<p class="help-text size-sm">@HelperText</p>
+	}
+</CascadingValue>
