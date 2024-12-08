@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Flatify\Utility\" />
+      <Folder Include="Flatify\Extensions\" />
       <Folder Include="Services\" />
     </ItemGroup>
 
