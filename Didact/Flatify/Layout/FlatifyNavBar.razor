@@ -1,0 +1,13 @@
+﻿<nav class="menu-items-wrapper navbar">
+	<ul class="links">
+		@NavigationLinks
+	</ul>
+	@SearchBar
+</nav>
+
+@code {
+
+	[Parameter] public RenderFragment NavigationLinks { get; set; }
+	[Parameter] public RenderFragment SearchBar { get; set; }
+
+}

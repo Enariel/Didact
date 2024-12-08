@@ -1,0 +1,25 @@
+﻿<div class="page">
+
+	<main>
+
+		@AppBar
+
+		<div class="sidebar">
+			<ul class="menu-items-wrapper" style="max-width: 250px; width: 250px; left: 0;">
+				@SideBar
+			</ul>
+		</div>
+
+		<article class="">
+			@MainContent
+		</article>
+	</main>
+</div>
+
+@code {
+
+	[Parameter] public RenderFragment AppBar { get; set; }
+	[Parameter] public RenderFragment SideBar { get; set; }
+	[Parameter] public RenderFragment MainContent { get; set; }
+
+}

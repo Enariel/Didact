@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>disable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+        <PackageReference Include="Blazored.SessionStorage" Version="2.4.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.11"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.11" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Flatify\Utility\" />
+      <Folder Include="Services\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\scss\content\_blockquote.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\content\_figure.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\content\_hr.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\content\_kbd.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\content\_table.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\forms\_checkbox.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\forms\_form.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\forms\_input.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\forms\_radio.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\forms\_range.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\forms\_select.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\forms\_textarea.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\forms\_toggle.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_animations.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_colors.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_container.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_dark-mode.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_design.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_layout.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_overlay-layer.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_pulse.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_responsive.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\helpers\_typography.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\mockups\items-group.scss" />
+    </ItemGroup>
+
+</Project>

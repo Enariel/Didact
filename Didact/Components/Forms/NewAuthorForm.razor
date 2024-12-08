@@ -1,0 +1,114 @@
+﻿@inherits StateAccessor
+<EditForm Model="@_model" OnValidSubmit="@(async (e) => await OnValidSubmitAsync(e))" class="container-md col-md-6">
+	<DataAnnotationsValidator/>
+	<ValidationSummary/>
+
+	<div class="form-group">
+		<label class="form-label">
+			GUID
+			@_model.AuthorId.ToString()
+		</label>
+	</div>
+	<div class="form-group">
+		<label class="form-label">
+			Pen Name
+			<InputText @bind-Value="@_model.PenName" required placeholder="@("Pen Name")"
+			           DisplayName="@("Pen Name")"/>
+		</label>
+	</div>
+
+	<div class="form-group">
+		<label class="form-label">
+			First Name
+			<InputText @bind-Value="@_model.FirstName" placeholder="@("First Name")"
+			           DisplayName="@("First Name")"/>
+		</label>
+		<label class="form-label">
+			Last Name
+			<InputText @bind-Value="@_model.LastName" placeholder="@("Last Name")"
+			           DisplayName="@("Last Name")"/>
+		</label>
+	</div>
+	<label class="form-label">
+		Birthday
+		<InputDate Type="InputDateType.Date" @bind-Value="@_model!.Birthday" DisplayName="@("Birthday")"/>
+	</label>
+
+	<button type="submit" class="btn btn-primary">
+		Save Data
+	</button>
+
+	<button type="button" class="btn btn-warning" @onclick="@(() => _model = new Author())">
+		Clear
+	</button>
+
+
+</EditForm>
+<br/>
+
+<div class="container">
+	@if (_data != null)
+	{
+		<p>GUID: <span>@_data?.AuthorId</span></p>
+		<p>Pen Name: <span>@_data?.PenName</span></p>
+		<p>First Name: <span>@_data?.FirstName</span></p>
+		<p>Last Name: <span>@_data?.LastName</span></p>
+		<p>Birthday: <span>@_data?.Birthday</span></p>
+		<p>Created On: <span>@_data?.CreatedOn</span></p>
+	}
+	<br/>
+	<button type="button" class="btn btn-success" @onclick="@(async () => await RetreiveDataAsync())">
+		Refresh
+	</button>
+	<button type="button" class="btn btn-danger" @onclick="@(async () => await DeleteAsync())">
+		Clear Data
+	</button>
+</div>
+<br/>
+
+<div class="container">
+	<p>@_messages</p>
+</div>
+
+@code {
+	private string _messages;
+	private Author _model = new Author();
+	private Author _data;
+
+	private async Task OnValidSubmitAsync(EditContext arg)
+	{
+		var isValid = arg.Validate();
+		if (isValid)
+		{
+			try
+			{
+				_model.AuthorId = Guid.NewGuid();
+				_model.CreatedOn = DateTime.UtcNow;
+				await base.SaveAsync("Author", _model);
+				_messages = "Saved!";
+				_model = new Author();
+			}
+			catch (Exception ex)
+			{
+				_messages = ex.Message;
+				_messages += $"\n\tSource: {ex.Source}";
+				_messages += $"\n\tStack Trace: {ex.StackTrace}";
+			}
+		}
+	}
+
+	private async Task RetreiveDataAsync()
+	{
+		_data = await base.GetDataAsync<Author>("Author");
+		StateHasChanged();
+	}
+
+	private async Task DeleteAsync()
+	{
+		_data = null;
+		await base.ClearDataAsync("Author");
+		await base.ClearAllDataAsync();
+		StateHasChanged();
+	}
+
+}

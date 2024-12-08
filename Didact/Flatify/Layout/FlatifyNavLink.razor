@@ -1,0 +1,14 @@
+﻿@inherits FlatifyBase
+<li class="menu-item">
+	<a href="@Href" target="@Target">
+		@ChildContent
+	</a>
+</li>
+
+@code {
+
+	[Parameter] public string Href { get; set; }
+	[Parameter] public string Target { get; set; } = "_self";
+	[Parameter] public RenderFragment ChildContent { get; set; }
+
+}

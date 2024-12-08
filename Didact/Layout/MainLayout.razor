@@ -1,0 +1,48 @@
+﻿@using Didact.Models
+@using Didact.Flatify.Layout
+@using Didact.Flatify.Components
+@using Didact.Flatify.Enums
+@inherits LayoutComponentBase
+<CascadingValue Value="@_author">
+	<FlatifyMainContent>
+		<AppBar>
+			<FlatifyNavBar>
+				<NavigationLinks>
+					<FlatifyNavLink Href="/">
+						Home
+					</FlatifyNavLink>
+				</NavigationLinks>
+			</FlatifyNavBar>
+		</AppBar>
+
+		<SideBar>
+			<FlatifyNavLink Href="/">
+				Home
+			</FlatifyNavLink>
+			<FlatifyNavLink Href="/Dashboard">
+				Dashboard
+			</FlatifyNavLink>
+		</SideBar>
+
+		<MainContent>
+			<FlatifyContainer Size="ContainerSize.XL">
+				@Body
+			</FlatifyContainer>
+		</MainContent>
+
+	</FlatifyMainContent>
+</CascadingValue>
+
+@code{
+
+	private Author _author = new Author();
+
+	protected override Task OnInitializedAsync()
+	{
+		// Try to get the author from local storage, if not, they cant go to the dashboard.
+
+		// If there exists an author, redirect to dashboard
+		return base.OnInitializedAsync();
+	}
+
+}

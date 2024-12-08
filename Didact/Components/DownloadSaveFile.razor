@@ -1,0 +1,21 @@
+﻿@inherits StateAccessor
+@inject IJSRuntime JSRuntime
+
+<button class="btn btn-primary" @onclick="@(async () => await DownloadFile())">
+	Download Save Data
+</button>
+
+@code {
+
+	public async Task DownloadFile()
+	{
+		var content = await base.GetDataAsync<Author>("Author");
+		if (content != null)
+		{
+			var fileName = content.PenName + ".xml";
+			var xml = await base.SerializeToXmlAsync(content);
+			await JSRuntime.InvokeAsync<object>("saveFile", fileName, xml);
+		}
+	}
+
+}
