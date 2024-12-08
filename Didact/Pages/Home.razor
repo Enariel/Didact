@@ -5,11 +5,19 @@
 
 <PageTitle>Home</PageTitle>
 
+@if (Didact != null)
+{
+	Nav.NavigateTo("/Dashboard");
+}
+else
+{
+	<NewAuthorForm/>
+}
 
-<NewAuthorForm/>
 
 @code
 {
+	[Inject] private NavigationManager Nav { get; set; }
 	[CascadingParameter(Name = "Didact")] public DidactData Didact { get; set; }
 
 }

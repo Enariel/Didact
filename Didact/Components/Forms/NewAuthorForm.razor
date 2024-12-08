@@ -3,9 +3,9 @@
 @using Didact.Flatify.Components.Paper
 @inherits Didact.Components.Data.DataManager
 
-<FlatifyPaper Width="500px" Height="500px">
+<FlatifyPaper Width="auto" Height="100%">
 
-	<EditForm Model="@_model" OnValidSubmit="@(async (e) => await OnValidSubmitAsync(e))" class="container-md col-md-6">
+	<EditForm Model="@_model" OnValidSubmit="@(async (e) => await OnValidSubmitAsync(e))" class="container-fluid">
 		<DataAnnotationsValidator/>
 		<ValidationSummary/>
 
@@ -39,25 +39,19 @@
 			</label>
 		</div>
 
-		<button disabled="@IsModifyingData" type="submit" class="button style-accent size-2x">
-			Save
-		</button>
+		<div class="button-group">
+			<button disabled="@IsModifyingData" type="submit" class="button style-accent size-2x">
+				Save
+			</button>
 
-		<button disabled="@IsModifyingData" class="button size-2x" type="button"
-		        @onclick="@(() => _model = new Author())">
-			Clear
-		</button>
+			<button disabled="@IsModifyingData" class="button style-accent outline" type="button"
+			        @onclick="@(() => _model = new Author())">
+				Clear
+			</button>
+		</div>
+
 	</EditForm>
 </FlatifyPaper>
-
-@* <div class="container"> *@
-@* 	<button type="button" class="btn btn-success" @onclick="@(async () => await RetreiveDataAsync())" disabled="@(Didact == null)"> *@
-@* 		Refresh *@
-@* 	</button> *@
-@* 	<button type="button" class="btn btn-danger" @onclick="@(async () => await DeleteAsync())"> *@
-@* 		Clear Data *@
-@* 	</button> *@
-@* </div> *@
 
 @code {
 
@@ -85,6 +79,7 @@
 				Didact = new DidactData(_model);
 				await base.SaveAsync(Utils.Keys.GameFile, Didact);
 				StateHasChanged();
+				Nav.Refresh(true);
 			}
 			catch (Exception ex)
 			{
@@ -94,19 +89,5 @@
 			}
 		}
 	}
-
-	// private async Task RetreiveDataAsync()
-	// {
-	// 	_data = await base.GetDataAsync<Author>("Author");
-	// 	StateHasChanged();
-	// }
-	//
-	// private async Task DeleteAsync()
-	// {
-	// 	_data = null;
-	// 	await base.ClearDataAsync("Author");
-	// 	await base.ClearAllDataAsync();
-	// 	StateHasChanged();
-	// }
 
 }

@@ -1,0 +1,43 @@
+﻿@using Didact.Components.Data
+@if (Didact == null)
+{
+	<p>Please upload or start a new file.</p>
+}
+else
+{
+	<div class="dropdown-wrapper">
+		<!-- a button to toggle show/hide of dropdown -->
+		<button id="my-dropdown-toggle" class="button dropdown-toggle arrow-button"
+		        aria-expanded="false">
+			@Didact.Author.PenName
+		</button>
+		<ul class="dropdown menu-items-wrapper" aria-labelledby="my-dropdown-toggle">
+			<li class="menu-item heading"><a href="/Author">Profile</a></li>
+			<li class="menu-item"><a href="/Author/Details">Details</a></li>
+			<li class="menu-item"><a href="/Author/Settings">Settings</a></li>
+			<li role="separator" class="menu-item separator" />
+			<li class="menu-item">
+				<UploadSaveFile /></li>
+			<li class="menu-item">
+				<DownloadSaveFile />
+			</li>
+			<li class="menu-item">
+				<button class="link-button">Delete File</button>
+			</li>
+			<!-- dropdown arrow which is optional -->
+			<li aria-hidden="true"><span class="pointer-arrow"></span></li>
+		</ul>
+	</div>
+}
+
+@code {
+
+	[CascadingParameter(Name = Utils.Keys.GameFile)]
+	public DidactData Didact { get; set; }
+
+	private Task UploadFileAsync(MouseEventArgs arg)
+	{
+		throw new NotImplementedException();
+	}
+
+}
