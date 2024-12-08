@@ -1,92 +1,90 @@
-﻿@inherits StateAccessor
-<EditForm Model="@_model" OnValidSubmit="@(async (e) => await OnValidSubmitAsync(e))" class="container-md col-md-6">
-	<DataAnnotationsValidator/>
-	<ValidationSummary/>
+﻿@using System.Linq.Expressions
+@using Didact.Flatify.Forms
+@using Didact.Flatify.Components.Paper
+@inherits Didact.Components.Data.DataManager
 
-	<div class="form-group">
-		<label class="form-label">
-			GUID
-			@_model.AuthorId.ToString()
-		</label>
-	</div>
-	<div class="form-group">
-		<label class="form-label">
-			Pen Name
-			<InputText @bind-Value="@_model.PenName" required placeholder="@("Pen Name")"
-			           DisplayName="@("Pen Name")"/>
-		</label>
-	</div>
+<FlatifyPaper Width="500px" Height="500px">
 
-	<div class="form-group">
-		<label class="form-label">
-			First Name
-			<InputText @bind-Value="@_model.FirstName" placeholder="@("First Name")"
-			           DisplayName="@("First Name")"/>
-		</label>
-		<label class="form-label">
-			Last Name
-			<InputText @bind-Value="@_model.LastName" placeholder="@("Last Name")"
-			           DisplayName="@("Last Name")"/>
-		</label>
-	</div>
-	<label class="form-label">
-		Birthday
-		<InputDate Type="InputDateType.Date" @bind-Value="@_model!.Birthday" DisplayName="@("Birthday")"/>
-	</label>
+	<EditForm Model="@_model" OnValidSubmit="@(async (e) => await OnValidSubmitAsync(e))" class="container-md col-md-6">
+		<DataAnnotationsValidator/>
+		<ValidationSummary/>
 
-	<button type="submit" class="btn btn-primary">
-		Save Data
-	</button>
+		<div class="input-wrapper floating-label">
+			<label class="form-label">GUID: </label>
+		</div>
 
-	<button type="button" class="btn btn-warning" @onclick="@(() => _model = new Author())">
-		Clear
-	</button>
+		<div class="input-wrapper floating-label">
+			<InputText @bind-Value="@_model.PenName" id="@(nameof(_model.PenName))"
+			           type="@InputType.Text.ToString().ToLower()" placeholder="Pen Name"/>
+			<label for="@(nameof(_model.PenName))" name="@(nameof(_model.PenName))" class="form-label">
+				Enter your Pen Name:
+			</label>
+		</div>
 
+		<div class="input-wrapper floating-label">
+			<InputText @bind-Value="@_model.FirstName" id="@(nameof(_model.FirstName))"
+			           type="@InputType.Text.ToString().ToLower()"
+			           placeholder="First Name"/>
+			<label for="@(nameof(_model.FirstName))" name="@(nameof(_model.FirstName))" class="form-label">
+				First Name:
+			</label>
+		</div>
 
-</EditForm>
-<br/>
+		<div class="input-wrapper floating-label">
+			<InputText @bind-Value="@_model.LastName" id="@(nameof(_model.LastName))"
+			           type="@InputType.Text.ToString().ToLower()"
+			           placeholder="Last Name"/>
+			<label for="@(nameof(_model.LastName))" name="@(nameof(_model.LastName))" class="form-label">
+				Last Name:
+			</label>
+		</div>
 
-<div class="container">
-	@if (_data != null)
-	{
-		<p>GUID: <span>@_data?.AuthorId</span></p>
-		<p>Pen Name: <span>@_data?.PenName</span></p>
-		<p>First Name: <span>@_data?.FirstName</span></p>
-		<p>Last Name: <span>@_data?.LastName</span></p>
-		<p>Birthday: <span>@_data?.Birthday</span></p>
-		<p>Created On: <span>@_data?.CreatedOn</span></p>
-	}
-	<br/>
-	<button type="button" class="btn btn-success" @onclick="@(async () => await RetreiveDataAsync())">
-		Refresh
-	</button>
-	<button type="button" class="btn btn-danger" @onclick="@(async () => await DeleteAsync())">
-		Clear Data
-	</button>
-</div>
-<br/>
+		<button disabled="@IsModifyingData" type="submit" class="button style-accent size-2x">
+			Save
+		</button>
 
-<div class="container">
-	<p>@_messages</p>
-</div>
+		<button disabled="@IsModifyingData" class="button size-2x" type="button"
+		        @onclick="@(() => _model = new Author())">
+			Clear
+		</button>
+	</EditForm>
+</FlatifyPaper>
+
+@* <div class="container"> *@
+@* 	<button type="button" class="btn btn-success" @onclick="@(async () => await RetreiveDataAsync())" disabled="@(Didact == null)"> *@
+@* 		Refresh *@
+@* 	</button> *@
+@* 	<button type="button" class="btn btn-danger" @onclick="@(async () => await DeleteAsync())"> *@
+@* 		Clear Data *@
+@* 	</button> *@
+@* </div> *@
 
 @code {
+
+	private DidactData _dataModel;
+
+	private Author _model = new Author()
+	{
+		AuthorId = Guid.NewGuid()
+	};
+
 	private string _messages;
-	private Author _model = new Author();
-	private Author _data;
+	private bool _isValid;
+	[CascadingParameter(Name = "Didact")] public DidactData Didact { get; set; }
+	[Inject] private NavigationManager Nav { get; set; }
 
 	private async Task OnValidSubmitAsync(EditContext arg)
 	{
-		var isValid = arg.Validate();
-		if (isValid)
+		_isValid = arg.Validate();
+		if (_isValid)
 		{
 			try
 			{
 				_model.AuthorId = Guid.NewGuid();
 				_model.CreatedOn = DateTime.UtcNow;
-				await base.SaveAsync("Author", _model);
-				_messages = "Saved!";
-				_model = new Author();
+				Didact = new DidactData(_model);
+				await base.SaveAsync(Utils.Keys.GameFile, Didact);
+				StateHasChanged();
 			}
 			catch (Exception ex)
 			{
@@ -97,18 +95,18 @@
 		}
 	}
 
-	private async Task RetreiveDataAsync()
-	{
-		_data = await base.GetDataAsync<Author>("Author");
-		StateHasChanged();
-	}
-
-	private async Task DeleteAsync()
-	{
-		_data = null;
-		await base.ClearDataAsync("Author");
-		await base.ClearAllDataAsync();
-		StateHasChanged();
-	}
+	// private async Task RetreiveDataAsync()
+	// {
+	// 	_data = await base.GetDataAsync<Author>("Author");
+	// 	StateHasChanged();
+	// }
+	//
+	// private async Task DeleteAsync()
+	// {
+	// 	_data = null;
+	// 	await base.ClearDataAsync("Author");
+	// 	await base.ClearAllDataAsync();
+	// 	StateHasChanged();
+	// }
 
 }

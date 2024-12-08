@@ -1,6 +1,16 @@
 ﻿@page "/Dashboard"
-<h3>Dashboard</h3>
+@using Didact.Components
+
+@if (Didact != null)
+{
+	<h3>Dashboard</h3>
+}
+else
+{
+	<Redirect RedirectTo="/"/>
+}
 
 @code {
-	
+	[CascadingParameter(Name = "Didact")] public DidactData Didact { get; set; }
+
 }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace Didact.Components;
+namespace Didact.Components.Data;
 
 public partial class UploadSaveFile
 {

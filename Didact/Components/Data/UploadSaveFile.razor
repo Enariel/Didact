@@ -1,0 +1,10 @@
+﻿@inherits DataManager
+
+<div class="form-group">
+<InputFile id="SingleUpload" name="SingleUpload" OnChange="@SingleUpload" disabled="@IsModifyingData"
+           class="form-control btn btn-secondary fa-upload"/>
+
+	<label class="form-label" for="SingleUpload" disabled="@IsModifyingData">
+		Upload Save File:
+	</label>
+</div>

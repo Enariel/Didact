@@ -1,22 +1,24 @@
-﻿namespace Didact.Models;
+﻿using System.Runtime.Serialization;
 
-public partial class ArticleContent
+namespace Didact.Models;
+
+[DataContract]
+public class ArticleContent
 {
-    public Guid ArticleId { get; set; }
+    public ArticleContent(Article article)
+    {
+        ParentArticleId = article.ArticleId;
+    }
 
-    public int ContentId { get; set; }
+    [DataMember] public Guid ParentArticleId { get; set; }
 
-    public string? Content { get; set; }
+    [DataMember] public string Content { get; set; }
 
-    public string? ContentType { get; set; }
+    [DataMember] public ArticleContentType ContentType { get; set; } = ArticleContentType.Text;
 
-    public int? Order { get; set; }
+    [DataMember] public int Order { get; set; } = 0;
 
-    public DateTime? CreatedOn { get; set; }
+    [DataMember] public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
-    public DateTime? ModifiedOn { get; set; }
-
-    public DateTime? DeletedOn { get; set; }
-
-    public virtual Article Article { get; set; } = null!;
+    [DataMember] public DateTime? ModifiedOn { get; set; }
 }

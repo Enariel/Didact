@@ -6,20 +6,10 @@
 <PageTitle>Home</PageTitle>
 
 
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-
-	<NewAuthorForm />
-
-</div>
-<br/>
-
-<DownloadSaveFile />
-
-<UploadSaveFile />
+<NewAuthorForm/>
 
 @code
 {
-
-
+	[CascadingParameter(Name = "Didact")] public DidactData Didact { get; set; }
 
 }

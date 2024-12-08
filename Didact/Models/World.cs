@@ -1,18 +1,23 @@
-﻿using System.Xml.Serialization;
+﻿using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Didact.Models;
 
-[Serializable]
+[DataContract]
 public class World
 {
-    [XmlElement]
+    [DataMember]
     public Guid WorldId { get; set; }
-    [XmlAttribute]
+
+    [DataMember]
     public string WorldName { get; set; }
-    [XmlAttribute]
+
+    [DataMember]
     public string SubTitle { get; set; }
-    [XmlElement]
+
+    [DataMember]
     public string Summary { get; set; }
-    [XmlAttribute]
+
+    [DataMember]
     public bool IsActiveWorld { get; set; }
 }

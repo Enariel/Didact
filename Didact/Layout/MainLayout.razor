@@ -1,49 +1,32 @@
-﻿@using Didact.Models
+﻿@using Blazored.LocalStorage
+@using Didact.Models
 @using Didact.Flatify.Layout
 @using Didact.Flatify.Components
 @using Didact.Flatify.Components.Container
 @using Didact.Flatify.Enums
+@using Didact.Components.Data
+@using Didact.Components
 @inherits LayoutComponentBase
-<CascadingValue Value="@_author">
+
+<CascadingValue Value="@_didact" Name="Didact">
 	<FlatifyMainContent>
 		<AppBar>
 			<FlatifyNavBar>
 				<NavigationLinks>
-					<FlatifyNavLink Href="/">
-						Home
-					</FlatifyNavLink>
+					<Navs />
 				</NavigationLinks>
 			</FlatifyNavBar>
 		</AppBar>
 
 		<SideBar>
-			<FlatifyNavLink Href="/">
-				Home
-			</FlatifyNavLink>
-			<FlatifyNavLink Href="/Dashboard">
-				Dashboard
-			</FlatifyNavLink>
+			<SideNavs />
 		</SideBar>
 
 		<MainContent>
-			<FlatifyContainer Size="ContainerSize.XL">
+			<FlatifyContainer Size="ContainerSize.XXL">
 				@Body
 			</FlatifyContainer>
 		</MainContent>
 
 	</FlatifyMainContent>
 </CascadingValue>
-
-@code{
-
-	private Author _author = new Author();
-
-	protected override Task OnInitializedAsync()
-	{
-		// Try to get the author from local storage, if not, they cant go to the dashboard.
-
-		// If there exists an author, redirect to dashboard
-		return base.OnInitializedAsync();
-	}
-
-}

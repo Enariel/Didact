@@ -1,11 +1,22 @@
-﻿namespace Didact.Models;
+﻿using System.Runtime.Serialization;
 
+namespace Didact.Models;
+
+[DataContract]
 public class Category
 {
-    public long Id { get; set; }
+    [DataMember]
+    public Guid CategoryId { get; set; } = Guid.NewGuid();
+
+    [DataMember]
     public string Title { get; set; } = null!;
+
+    [DataMember]
     public string Description { get; set; } = null!;
+
+    [DataMember]
     public DateTime? CreatedOn { get; set; }
+
+    [DataMember]
     public DateTime? ModifiedOn { get; set; }
-    public DateTime? DeletedOn { get; set; }
 }

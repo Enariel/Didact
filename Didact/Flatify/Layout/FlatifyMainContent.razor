@@ -1,18 +1,17 @@
 ﻿<div class="page">
 
-	<main>
+	<main style="height: 100vh;">
 
 		@AppBar
 
-		<div class="sidebar">
-			<ul class="menu-items-wrapper" style="max-width: 250px; width: 250px; left: 0;">
+		<div class="height-100p d-flex">
+			<ul class="menu-items-wrapper height-100p" style="width: 300px; overflow-y: auto; overflow-x: hidden;">
 				@SideBar
 			</ul>
+			<article>
+				@MainContent
+			</article>
 		</div>
-
-		<article class="">
-			@MainContent
-		</article>
 	</main>
 </div>
 
