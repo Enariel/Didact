@@ -7,7 +7,7 @@ public partial class FlatifyPaper : FlatifyBase
 {
     protected string Classname => new CssBuilder("card")
         .AddClass(Class)
-        .AddClass("mx-4")
+        .AddClass("px-4")
         .Build();
 
     protected string Stylename => new StyleBuilder()

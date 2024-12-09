@@ -1,22 +1,22 @@
 ﻿@page "/"
+@using Didact.Components
 
 <PageTitle>Home</PageTitle>
 
 <Auth>
 	<Authorized>
-		@{
-			Nav.NavigateTo("/Dashboard", true);
-		}
+		<Redirect RedirectTo="/Dashboard"/>
 	</Authorized>
 	<NotAuthorized>
 		<NewAuthorForm/>
+		<hr class="short"/>
+		<UploadSaveFile/>
 	</NotAuthorized>
 </Auth>
 
 
 @code
-{
-	[Inject] private NavigationManager Nav { get; set; }
-	[CascadingParameter(Name = "Didact")] public DidactData Didact { get; set; }
 
+{
+	[CascadingParameter(Name = "Didact")] public DidactData Didact { get; set; }
 }
