@@ -13,13 +13,14 @@
 			<label class="form-label">GUID: </label>
 		</div>
 
-		<div class="input-wrapper floating-label">
-			<InputText @bind-Value="@_model.PenName" id="@(nameof(_model.PenName))"
-			           type="@InputType.Text.ToString().ToLower()" placeholder="Pen Name"/>
-			<label for="@(nameof(_model.PenName))" name="@(nameof(_model.PenName))" class="form-label">
-				Enter your Pen Name:
-			</label>
-		</div>
+		<FlatifyInput @bind-Value="@_model.PenName" Label="@nameof(_model.PenName)" InputType="@InputType.Text" FullWidth="true" />
+		@* <div class="input-wrapper floating-label"> *@
+		@* 	<InputText @bind-Value="@_model.PenName" id="@(nameof(_model.PenName))" *@
+		@* 	           type="@InputType.Text.ToString().ToLower()" placeholder="Pen Name"/> *@
+		@* 	<label for="@(nameof(_model.PenName))" name="@(nameof(_model.PenName))" class="form-label"> *@
+		@* 		Enter your Pen Name: *@
+		@* 	</label> *@
+		@* </div> *@
 
 		<div class="input-wrapper floating-label">
 			<InputText @bind-Value="@_model.FirstName" id="@(nameof(_model.FirstName))"

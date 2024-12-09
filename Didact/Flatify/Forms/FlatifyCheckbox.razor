@@ -1,9 +1,21 @@
-﻿<label class="checkbox-wrapper">
-	<input type="checkbox" checked/>
-	<span class="check"></span>
-	I Agree to Privacy Policy.
+﻿@inherits FlatifyInputBase<bool>
+<label class="@Classname">
+	<InputCheckbox @bind-Value="@Value" DisplayName="@Label" id="@InputElementId" disabled="@Disabled" required="@Required" readonly="@ReadOnly" />
+	<span class="@CheckClass"></span>
+	@Label
 </label>
+@if (!string.IsNullOrEmpty(HelperText))
+{
+	<p class="text-sm">@HelperText</p>
+}
 
 @code {
 
+	protected string Classname => new CssBuilder()
+		.AddClass("checkbox-wrapper")
+		.Build();
+
+	protected string CheckClass => new CssBuilder()
+		.AddClass("check", Value)
+		.Build();
 }
