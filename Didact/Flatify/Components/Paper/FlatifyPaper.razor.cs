@@ -6,12 +6,11 @@ namespace Didact.Flatify.Components.Paper;
 public partial class FlatifyPaper : FlatifyBase
 {
     protected string Classname => new CssBuilder("card")
-        .AddClass("style-light")
         .AddClass(Class)
+        .AddClass("mx-4")
         .Build();
 
     protected string Stylename => new StyleBuilder()
-        .AddStyle("max-width: 320px;")
         .AddStyle("height", $"{Height}", !string.IsNullOrEmpty(Height))
         .AddStyle("width", $"{Width}", !string.IsNullOrEmpty(Width))
         .AddStyle("max-height", $"{MaxHeight}", !string.IsNullOrEmpty(MaxHeight))

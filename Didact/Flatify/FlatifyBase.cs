@@ -9,7 +9,7 @@ namespace Didact.Flatify;
 public class FlatifyBase : ComponentBase
 {
     private ILogger _logger;
-    private string _class;
+    private string _class = "";
 
     protected Dictionary<string, object> AttributeDict { get; set; } = new Dictionary<string, object>();
 
@@ -21,12 +21,19 @@ public class FlatifyBase : ComponentBase
         get => _class;
         set
         {
-            var css = new CssBuilder()
-                .AddClass(value)
-                .AddClass(Helpers.GetStyleType(StyleType!.Value), StyleType.HasValue)
-                .AddClass(Helpers.SizeDict[Size!.Value], Size.HasValue)
-                .Build();
-            _class = css;
+            if (value == null)
+                return;
+            if (Size.HasValue && StyleType.HasValue)
+            {
+                var adjustedClass = new CssBuilder()
+                    .AddClass(value)
+                    .AddClass(Helpers.GetStyleType(StyleType.Value), StyleType.HasValue)
+                    .AddClass(Helpers.SizeDict[Size.Value], Size.HasValue)
+                    .Build();
+                _class = adjustedClass;
+            }
+            else
+                _class = value;
         }
     }
 

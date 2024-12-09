@@ -2,8 +2,8 @@
 	<NavLink class="nav-link" href="@Href" Match="@Match">
 		@if (!string.IsNullOrEmpty(Icon))
 		{
-			<span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span>
+			<i class="@Icon"/>
 		}
-		@Label
+		<span class="link-primary" aria-hidden="true">@Label</span>
 	</NavLink>
 </div>

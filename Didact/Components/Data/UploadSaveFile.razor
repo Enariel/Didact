@@ -1,6 +1,6 @@
 ﻿@inherits DataManager
 
-<InputFile id="SingleUpload" name="SingleUpload" OnChange="@SingleUpload" disabled="@IsModifyingData"
-           class="link-button fa-upload d-flex" title="Upload File">
+<InputFile class="size-xs" id="SingleUpload" name="SingleUpload" OnChange="@SingleUpload" disabled="@_isModifyingData">
+	<i class="fa-solid fa-upload"></i>
 </InputFile>
 

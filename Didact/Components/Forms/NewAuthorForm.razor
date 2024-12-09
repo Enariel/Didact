@@ -3,41 +3,51 @@
 @using Didact.Flatify.Components.Paper
 @inherits Didact.Components.Data.DataManager
 
-<FlatifyPaper Width="auto" Height="100%">
+<FlatifyPaper Class="container-xl width-100p height-100p" StyleType="StyleType.Light">
 
-	<EditForm Model="@_model" OnValidSubmit="@(async (e) => await OnValidSubmitAsync(e))" class="container-fluid">
+	<EditForm Model="@_model" OnValidSubmit="@(async (e) => await OnValidSubmitAsync(e))">
 		<DataAnnotationsValidator/>
 		<ValidationSummary/>
+		<div class="flex-column-center-x">
+			@* <label class="form-label">GUID: @_model.AuthorId</label> *@
+			<div class="input-wrapper floating-label width-100p">
+				<InputText @bind-Value="@_model.PenName" id="@(nameof(_model.PenName))" type="text"
+				           placeholder="Pen Name" required="true"/>
+				<label for="@(nameof(_model.PenName))" name="@(nameof(_model.PenName))" class="form-label">
+					Pen Name:
+				</label>
+			</div>
+			<p class="text-sm width-100p">This is effectively your author or pen name for this world. Dont worry, it can be changed
+				at any time!</p>
+			<div class="flex-center-x width-100p">
+				<div class="input-wrapper floating-label width-100p">
+					<InputText @bind-Value="@_model.FirstName" id="@(nameof(_model.FirstName))"
+					           type="text"
+					           placeholder="First Name"/>
+					<label for="@(nameof(_model.FirstName))" name="@(nameof(_model.FirstName))" class="form-label">
+						First Name:
+					</label>
+				</div>
 
-		<div class="input-wrapper floating-label">
-			<label class="form-label">GUID: </label>
-		</div>
-
-		<div class="input-wrapper floating-label">
-			<InputText @bind-Value="@_model.FirstName" id="@(nameof(_model.FirstName))"
-			           type="text"
-			           placeholder="First Name"/>
-			<label for="@(nameof(_model.FirstName))" name="@(nameof(_model.FirstName))" class="form-label">
-				First Name:
-			</label>
-		</div>
-
-		<div class="input-wrapper floating-label">
-			<InputText @bind-Value="@_model.LastName" id="@(nameof(_model.LastName))"
-					   type="text"
-			           placeholder="Last Name"/>
-			<label for="@(nameof(_model.LastName))" name="@(nameof(_model.LastName))" class="form-label">
-				Last Name:
-			</label>
+				<div class="input-wrapper floating-label width-100p">
+					<InputText @bind-Value="@_model.LastName" id="@(nameof(_model.LastName))"
+					           type="text"
+					           placeholder="Last Name"/>
+					<label for="@(nameof(_model.LastName))" name="@(nameof(_model.LastName))" class="form-label">
+						Last Name:
+					</label>
+				</div>
+			</div>
 		</div>
 
 		<div class="button-group">
-			<button disabled="@IsModifyingData" type="submit" class="button style-accent size-2x">
+			<button disabled="@IsModifyingData" type="submit" class="button style-accent width-100p">
+				<i class="fa-solid fa-floppy-disk"></i>
 				Save
 			</button>
-
-			<button disabled="@IsModifyingData" class="button style-accent outline" type="button"
-			        @onclick="@(() => _model = new Author())">
+			<button disabled="@IsModifyingData" class="button style-light width-100p" type="button"
+			        @onclick="@(() => _model = new Author(){ AuthorId = Guid.NewGuid() })">
+				<i class="fa-solid fa-stop"></i>
 				Clear
 			</button>
 		</div>
