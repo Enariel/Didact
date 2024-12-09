@@ -87,9 +87,6 @@ public class DataManager : ComponentBase
             _isModifyingData = false;
             throw;
         }
-
-        _isModifyingData = false;
-        return Task.FromResult("");
     }
 
     protected Task<TData> DeserializeFromXmlDataContractAsync<TData>(string dataStream, CancellationToken token = default)

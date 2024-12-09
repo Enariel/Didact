@@ -38,8 +38,6 @@ public static class Serialization
             Console.WriteLine(ex.Message, "An error occurred during XML serialization.");
             throw;
         }
-
-        return null;
     }
 
     public static Task<TData> DeserializeFromXmlDataContractAsync<TData>(string xmlString, CancellationToken token = default)

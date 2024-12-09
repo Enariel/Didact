@@ -9,7 +9,7 @@ internal static class StringBuilderCache
     // StringBuilder creations on the startup path of VS designers.
     private const int MaxBuilderSize = 360;
 
-    [ThreadStatic] private static StringBuilder? _cachedInstance;
+    [ThreadStatic] private static StringBuilder _cachedInstance;
 
     public static StringBuilder Acquire(int capacity = MaxBuilderSize)
     {

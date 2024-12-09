@@ -7,7 +7,7 @@ namespace Didact.Flatify.Utility;
 /// </summary>
 public struct CssBuilder
 {
-    private StringBuilder? _stringBuilder;
+    private StringBuilder _stringBuilder;
 
     /// <summary>
     /// Creates a new instance of CssBuilder with the specified initial value.
@@ -48,7 +48,7 @@ public struct CssBuilder
     /// </remarks>
     /// <param name="value">The initial CSS class value.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder(string? value) : this()
+    public CssBuilder(string value) : this()
     {
         if (value is not null)
         {
@@ -61,7 +61,7 @@ public struct CssBuilder
     /// </summary>
     /// <param name="value">The string value to add.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddValue(string? value)
+    public CssBuilder AddValue(string value)
     {
         if (value is not null)
         {
@@ -76,7 +76,7 @@ public struct CssBuilder
     /// </summary>
     /// <param name="value">The CSS class to add.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddClass(string? value)
+    public CssBuilder AddClass(string value)
     {
         AddValue(" ");
         AddValue(value);
@@ -89,7 +89,7 @@ public struct CssBuilder
     /// <param name="value">The CSS class to conditionally add.</param>
     /// <param name="when">The nullable condition in which the CSS class is added.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddClass(string? value, bool when) => when ? AddClass(value) : this;
+    public CssBuilder AddClass(string value, bool when) => when ? AddClass(value) : this;
 
     /// <summary>
     /// Adds a conditional CSS class to the builder with space separator.
@@ -97,7 +97,7 @@ public struct CssBuilder
     /// <param name="value">CSS class to conditionally add.</param>
     /// <param name="when">Nullable condition in which the CSS class is added.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddClass(string? value, bool? when) => when == true ? AddClass(value) : this;
+    public CssBuilder AddClass(string value, bool? when) => when == true ? AddClass(value) : this;
 
     /// <summary>
     /// Adds a conditional CSS class to the builder with a space separator.
@@ -105,7 +105,7 @@ public struct CssBuilder
     /// <param name="value">The CSS class to conditionally add.</param>
     /// <param name="when">The condition in which the CSS class is added.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddClass(string? value, Func<bool>? when) => AddClass(value, when is not null && when());
+    public CssBuilder AddClass(string value, Func<bool> when) => AddClass(value, when is not null && when());
 
     /// <summary>
     /// Adds a conditional CSS class to the builder with a space separator.
@@ -113,7 +113,7 @@ public struct CssBuilder
     /// <param name="value">The function that returns a CSS class to conditionally add.</param>
     /// <param name="when">The condition in which the CSS class is added.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddClass(Func<string?> value, bool when = true) => when ? AddClass(value()) : this;
+    public CssBuilder AddClass(Func<string> value, bool when = true) => when ? AddClass(value()) : this;
 
     /// <summary>
     /// Adds a conditional CSS class to the builder with a space separator.
@@ -121,7 +121,7 @@ public struct CssBuilder
     /// <param name="value">The function that returns a CSS class to conditionally add.</param>
     /// <param name="when">The condition in which the CSS class is added.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddClass(Func<string?> value, Func<bool>? when = null) => AddClass(value, when is not null && when());
+    public CssBuilder AddClass(Func<string> value, Func<bool> when = null) => AddClass(value, when is not null && when());
 
     /// <summary>
     /// Adds a conditional nested CssBuilder to the builder with a space separator.
@@ -137,7 +137,7 @@ public struct CssBuilder
     /// <param name="builder">The CssBuilder to conditionally add.</param>
     /// <param name="when">The condition in which the CSS class is added.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddClass(CssBuilder builder, Func<bool>? when = null) => AddClass(builder, when is not null && when());
+    public CssBuilder AddClass(CssBuilder builder, Func<bool> when = null) => AddClass(builder, when is not null && when());
 
     /// <summary>
     /// Adds a conditional CSS class when it exists in a dictionary to the builder with a space separator.
@@ -145,7 +145,7 @@ public struct CssBuilder
     /// </summary>
     /// <param name="additionalAttributes">Additional attribute splat parameters.</param>
     /// <returns>The <see cref="CssBuilder"/> instance.</returns>
-    public CssBuilder AddClassFromAttributes(IReadOnlyDictionary<string, object>? additionalAttributes)
+    public CssBuilder AddClassFromAttributes(IReadOnlyDictionary<string, object> additionalAttributes)
     {
         return additionalAttributes is null
             ? this
