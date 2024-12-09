@@ -5,6 +5,8 @@ namespace Didact.Models;
 [DataContract]
 public class ArticleContent
 {
+    public ArticleContent(){}
+
     public ArticleContent(Article article)
     {
         ParentArticleId = article.ArticleId;

@@ -1,0 +1,14 @@
+﻿@inherits FlatifyBaseInput<string>
+
+<label class="form-label inline" for="my-text-input">@Label</label>
+<input id="my-text-input" type="text" placeholder="Enter you name"/>
+
+@code {
+
+	[Parameter] public int MaxLength { get; set; } = 524288;
+	[Parameter] public int Lines { get; set; } = 1;
+	[Parameter] public InputMode Mode { get; set; } = InputMode.text;
+	[Parameter] public string Text { get; set; }
+	[Parameter] public EventCallback<string> TextChanged { get; set; }
+
+}

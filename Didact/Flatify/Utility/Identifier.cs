@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Didact.Flatify.Forms;
+namespace Didact.Flatify.Utility;
 
 public static class Identifier
 {

@@ -1,0 +1,36 @@
+﻿@using Didact.Flatify.Components.Paper
+@inherits FlatifyPaper
+<FlatifyPaper Class="@Classname" Style="@Stylename" @attributes="@AttributeDict"
+              Height="@Height" Width="@Width" Size="@Size" MaxHeight="@MaxHeight" MaxWidth="@MaxWidth"
+              MinHeight="@MinHeight" MinWidth="@MinWidth" StyleType="@StyleType">
+	<EditForm OnSubmit="@OnSubmitAsync" Model="@Model" EditContext="@Ctx" OnInvalidSubmit="@OnInvalidSubmit" OnValidSubmit="@OnValidSubmitAsync">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+		@ChildContent
+	</EditForm>
+</FlatifyPaper>
+
+@code {
+
+	[Parameter] public object Model { get; set; }
+	[Parameter] public EditContext Ctx { get; set; }
+	[Parameter] public EventCallback<EditContext> OnFormSubmit { get; set; }
+	[Parameter] public EventCallback<EditContext> OnFormInvalidSubmit { get; set; }
+	[Parameter] public EventCallback<EditContext> OnFormValidSubmit { get; set; }
+
+	private async Task OnSubmitAsync(EditContext arg)
+	{
+		await OnFormSubmit.InvokeAsync(arg);
+	}
+
+	private async Task OnValidSubmitAsync(EditContext arg)
+	{
+		await OnFormValidSubmit.InvokeAsync(arg);
+	}
+
+	private async Task OnInvalidSubmit(EditContext arg)
+	{
+		await OnFormInvalidSubmit.InvokeAsync(arg);
+	}
+
+}

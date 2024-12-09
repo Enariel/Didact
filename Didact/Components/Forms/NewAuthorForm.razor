@@ -13,18 +13,9 @@
 			<label class="form-label">GUID: </label>
 		</div>
 
-		<FlatifyInput @bind-Value="@_model.PenName" Label="@nameof(_model.PenName)" InputType="@InputType.Text" FullWidth="true" />
-		@* <div class="input-wrapper floating-label"> *@
-		@* 	<InputText @bind-Value="@_model.PenName" id="@(nameof(_model.PenName))" *@
-		@* 	           type="@InputType.Text.ToString().ToLower()" placeholder="Pen Name"/> *@
-		@* 	<label for="@(nameof(_model.PenName))" name="@(nameof(_model.PenName))" class="form-label"> *@
-		@* 		Enter your Pen Name: *@
-		@* 	</label> *@
-		@* </div> *@
-
 		<div class="input-wrapper floating-label">
 			<InputText @bind-Value="@_model.FirstName" id="@(nameof(_model.FirstName))"
-			           type="@InputType.Text.ToString().ToLower()"
+			           type="text"
 			           placeholder="First Name"/>
 			<label for="@(nameof(_model.FirstName))" name="@(nameof(_model.FirstName))" class="form-label">
 				First Name:
@@ -33,7 +24,7 @@
 
 		<div class="input-wrapper floating-label">
 			<InputText @bind-Value="@_model.LastName" id="@(nameof(_model.LastName))"
-			           type="@InputType.Text.ToString().ToLower()"
+					   type="text"
 			           placeholder="Last Name"/>
 			<label for="@(nameof(_model.LastName))" name="@(nameof(_model.LastName))" class="form-label">
 				Last Name:

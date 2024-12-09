@@ -6,8 +6,6 @@ namespace Didact.Components.Data;
 
 public partial class UploadSaveFile
 {
-    [Inject] public ILogger<UploadSaveFile> Logger { get; set; }
-
     private async Task SingleUpload(InputFileChangeEventArgs e)
     {
         // Get file extension and reject if its not .xml

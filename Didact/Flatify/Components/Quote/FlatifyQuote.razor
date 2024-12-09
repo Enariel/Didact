@@ -1,0 +1,9 @@
+﻿@inherits FlatifyBase
+<blockquote class="@Classname" style="@Style">
+  <p>@QuoteText</p>
+  @if (!string.IsNullOrWhiteSpace(Citation))
+  {
+    <cite>@Citation</cite>
+  }
+  @ChildContent
+</blockquote>

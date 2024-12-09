@@ -6,9 +6,3 @@ else
 {
 	@NotAuthorized
 }
-
-@code {
-	[Parameter] public RenderFragment Authorized { get; set; }
-	[Parameter] public RenderFragment NotAuthorized { get; set; }
-	[CascadingParameter(Name = Utils.Keys.GameFile)] public DidactData Didact { get; set; }
-}
