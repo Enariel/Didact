@@ -1,19 +1,23 @@
 ﻿#region Details
 
-//
+// 
 // -----------------------------------------
 // fuchs
-// Didact-52
-// 12/08/2024
+// Didact-01
+// 12/09/2024
 
 #endregion
 
 namespace Didact.Flatify.Enums;
 
-public enum StateType
+public enum Size
 {
-    Success,
-    Info,
-    Warning,
-    Danger,
+    Xs,
+    Sm,
+    Md,
+    Lg,
+    TwoX,
+    ThreeX,
+    FourX,
+    FiveX
 }

@@ -1,0 +1,12 @@
+﻿@inherits FlatifyInput<bool>
+
+<label class="@ToggleCss">
+	<input required="@Required"
+	       class="@fieldCssClass"
+	       @bind="@Value"
+	       type="@(Type.ToString().ToLower())"
+	       name="@NameAttributeValue"/>
+	<span class="@ClassCheck"></span>
+	@Label
+</label>
+<ValidationMessage For="@For"/>

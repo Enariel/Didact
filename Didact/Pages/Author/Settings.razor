@@ -1,6 +1,52 @@
 ﻿@page "/Author/Settings"
+@inherits DataManager
 <h3>Settings</h3>
 
+<p>This is the Settings page.</p>
+
+<EditForm EditContext="@_context" FormName="Settings" OnSubmit="@HandleFormSubmission">
+	<DataAnnotationsValidator/>
+	<ValidationSummary/>
+
+	<FlatifySwitch @bind-Value="@Model.UseSessionStorage"
+				   For="@(() => Model.UseSessionStorage)"
+	               Label="Use Session Storage"
+	               DisplayName="Session Storage" Type="InputType.Checkbox">
+	</FlatifySwitch>
+	<button type="submit" class="button style-accent">Submit</button>
+</EditForm>
+
 @code {
+
+	private bool _b;
+	private EditContext _context;
+
+	// Model
+	public SettingData Model { get; set; } = new SettingData();
+
+	public bool B
+	{
+		get => _b;
+		set
+		{
+			Logger.LogInformation("Changed to " + _b.ToString());
+			_b = value;
+		}
+	}
+
+	protected override void OnInitialized()
+	{
+		Model ??= new SettingData();
+		_context = new EditContext(Model);
+		_context.SetFieldCssClassProvider(new FlatifyFieldClassValidator());
+		base.OnInitialized();
+	}
+
+	private async Task HandleFormSubmission(EditContext arg)
+	{
+		Logger.LogInformation(Model.UseSessionStorage.ToString());
+		await Task.Delay(500);
+		await Task.CompletedTask;
+	}
 
 }

@@ -1,0 +1,9 @@
+﻿@using System.Linq.Expressions
+@inherits InputBase<T>
+@typeparam T
+
+
+<label class="@fieldCssClass">@Label</label>
+<input @bind="@Value" class="@fieldCssClass" id="@Guid.NewGuid()"
+       name="@NameAttributeValue" type="@Type.ToString().ToLower()" placeholder="@Placeholder"/>
+<ValidationMessage AdditionalAttributes="@AdditionalAttributes" For="@ValueExpression"></ValidationMessage>

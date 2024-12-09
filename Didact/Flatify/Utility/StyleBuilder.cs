@@ -7,7 +7,7 @@ namespace Didact.Flatify.Utility;
 /// </summary>
 public struct StyleBuilder
 {
-    private StringBuilder? _stringBuilder;
+    private StringBuilder _stringBuilder;
 
     /// <summary>
     /// Creates a new instance of StyleBuilder with the specified property and value.
